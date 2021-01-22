@@ -40,7 +40,7 @@ class Book extends React.Component {
 
     fetchJobs(newPage) {
         //console.log(this.props)
-        fetch(`http://localhost:5000/api/books?page=${newPage}&bookType=${this.props.bookType}`)
+        fetch(`/api/books?page=${newPage}&bookType=${this.props.bookType}`)
             .then(res => res.json())
                 .then(books_ => this.setState({ 
                     books: books_["data"],

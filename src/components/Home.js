@@ -12,7 +12,7 @@ class Home extends React.Component {
         const { classes } = this.props;
         return (
                 <div className="Home">
-                    <p>Pagina de start</p>
+                    <p>Urmeaza</p>
                 </div>
         )
     }
