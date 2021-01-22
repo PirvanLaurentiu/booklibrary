@@ -52,7 +52,7 @@ class BookCard extends React.Component {
     handleBorrowButton = (bookId) => {
         if (this.state.count > 0 ) { 
             this.setState({count: this.state.count-1})
-            fetch(`http://localhost:5000/api/borrowBook?bookId=${bookId}`, {
+            fetch(`/api/borrowBook?bookId=${bookId}`, {
                 method: 'POST',
             })
             .then(function(response) {
