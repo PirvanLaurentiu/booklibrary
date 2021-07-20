@@ -26,7 +26,6 @@ const styles = theme => ({
     },
 });
 
-
 class Book extends React.Component {
     constructor() {
         super();
@@ -41,14 +40,22 @@ class Book extends React.Component {
     fetchJobs(newPage) {
         //console.log(this.props)
         fetch(`/api/books?page=${newPage}&bookType=${this.props.bookType}`)
+            .then(res => {
+                if (res.status >= 400 && res.status < 600) {
+                    throw new Error("Bad response from server");
+                  }
+                  return res;
+            })
             .then(res => res.json())
                 .then(books_ => this.setState({ 
                     books: books_["data"],
                     paginationCount: books_["paginationCount"],
                     page: newPage,
-                    isLoading: false 
+                    isLoading: false  
                 }, () => console.log("successfully fetched jobs", books_, this.state)
-                ))
+                )).catch(e => {
+                    console.log(e);
+                });
     }
 
     componentDidMount() {

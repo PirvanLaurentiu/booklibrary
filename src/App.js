@@ -23,9 +23,11 @@ class App extends React.Component {
     render() {
         const { classes } = this.props;
         return (
+            <BrowserRouter>
                 <div className="App">
                     <SideMenu />
                 </div>
+            </BrowserRouter>
         )
     }
 }

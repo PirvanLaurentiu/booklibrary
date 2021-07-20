@@ -24,4 +24,5 @@ const headerStyle = {
     textAlign: 'center',
     padding: '10px'
 }
+
 export default Home;
