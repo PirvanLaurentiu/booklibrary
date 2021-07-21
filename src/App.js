@@ -8,6 +8,7 @@ import AudioBook from "./components/AudioBook";
 import EBook from "./components/EBook";
 import GenericBook from "./components/GenericBook";
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 class App extends React.Component {
     constructor() {
@@ -35,6 +36,7 @@ class App extends React.Component {
 						<Route path="/carti-electronice" render={(props) => <EBook {...props} />} />
 						<Route path="/carti-audio" render={(props) => <AudioBook {...props} />} />
 						<Route exact path="/login" component={Login} />
+                        <Route exact path="/register" component={Register} />
 					</Switch>
                 <div className="App">
                     <SideMenu />

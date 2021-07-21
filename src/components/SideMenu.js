@@ -114,6 +114,11 @@ function ResponsiveDrawer(props) {
 						Biblioteca virtuala
 					</Typography>
 					{/* <Button color="primary" className="btn btn-primary" onClick={RouteChange}>Login</Button> */}
+					<Link to="/register">
+					<Button renderAs="button">
+						<span>Register</span>
+					</Button>
+					</Link>
 					<Link to="/login">
 					<Button renderAs="button">
 						<span>Login</span>

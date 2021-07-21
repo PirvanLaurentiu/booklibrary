@@ -1,12 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core';
 import "../App.css";
 import Axios from "axios";
 
-const Login = ({ handleClose }) {
-    const [usernameReg, setUsernameReg] = useState("");
-    const [passwordReg, setPasswordReg] = useState("");
+const useStyles = makeStyles(theme => ({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'auto',
+      alignItems: 'center',
+      padding: theme.spacing(8),
+  
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '300px',
+      },
+      '& .MuiButtonBase-root': {
+        margin: theme.spacing(2),
+      },
+    },
+  }));
+
+function Login() {
+    const classes = useStyles();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -15,18 +33,9 @@ const Login = ({ handleClose }) {
 
     Axios.defaults.withCredentials = true;
 
-    const register = () => {
-        Axios.post("/api/register", {
-            username: usernameReg,
-            password: passwordReg,
-        }).then((response) => {
-            console.log(response);
-        });
-    };
-
     const login = () => {
         Axios.post("/api/login", {
-            username: username,
+            email: username,
             password: password,
         }).then((response) => {
             console.log(response);
@@ -52,26 +61,7 @@ const Login = ({ handleClose }) {
 
     return (
         <div className="App">
-            <div className="registration">
-                <h1>Registration</h1>
-                <label>Username</label>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setUsernameReg(e.target.value);
-                    }}
-                />
-                <label>Password</label>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setPasswordReg(e.target.value);
-                    }}
-                />
-                <Button variant="contained" color="primary" onClick={register}> Register </Button>
-            </div>
-
-            <div className="login">
+            <div className={classes.root}>
                 <h1>Login</h1>
                 <input
                     type="text"

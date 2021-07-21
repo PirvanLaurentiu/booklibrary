@@ -14,10 +14,12 @@ dotenv.config({path: '../config/config.env'})
 // @access Public
 exports.register = async (req, res, next) => {
     try {
+        console.log(req);
         const email = req.body.email;
         const password = req.body.password;
     
         //check user exists
+        console.log(`Querying email '${email}'`)
         const getQuery = `SELECT id FROM users WHERE email = '${email}'`;
         rows = await pool.query(getQuery);
         if (rows.length > 0) {
