@@ -6,10 +6,15 @@ import {
     Grid,
 } from '@material-ui/core/'
 
+
+const drawerWidth = 240 + 15;
+
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        marginLeft: 'auto'
     },
     icon: {
         color: 'blue',
@@ -81,7 +86,7 @@ class Book extends React.Component {
                     direction="row"
                     justify="flex-start"
                     alignItems="flex-start"
-                    style={{ minHeight: '100vh', maxWidth: "150vh" }}
+                    style={{ minHeight: '100vh', maxWidth: "150vh", marginLeft: drawerWidth, marginTop: "8vh" }}
                 >
                     {this.state.books.map(elem => (
                         <Grid item xs={12} sm={6} md={3} key={this.state.books.indexOf(elem)}>

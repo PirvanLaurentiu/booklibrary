@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
+import Button from '@material-ui/core/Button';
 import "../App.css";
 import Axios from "axios";
 
-function Login() {
+const Login = ({ handleClose }) {
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
 
@@ -43,7 +44,10 @@ function Login() {
         Axios.get("/api/isUserAuth", {
             headers: {
                 "x-access-token": localStorage.getItem("token")
-        }})
+        },
+    }).then((response) => {
+        console.log(response);
+    })
     }
 
     return (
@@ -64,7 +68,7 @@ function Login() {
                         setPasswordReg(e.target.value);
                     }}
                 />
-                <button onClick={register}> Register </button>
+                <Button variant="contained" color="primary" onClick={register}> Register </Button>
             </div>
 
             <div className="login">
@@ -83,10 +87,10 @@ function Login() {
                         setPassword(e.target.value);
                     }}
                 />
-                <button onClick={login}> Login </button>
+                <Button variant="contained" color="primary" onClick={login}> Login </Button>
+                <h1>{loginStatus}</h1>
             </div>
-
-            <h1>{loginStatus}</h1>
+            <h1>{loginStatus && <Button variant="contained" color="primary" onClick={userAuthenticated}> Check if authenticated</Button>}</h1>
         </div>
     );
 }

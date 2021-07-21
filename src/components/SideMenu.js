@@ -121,14 +121,14 @@ function ResponsiveDrawer(props) {
 					</Link>
 				</Toolbar>
 			</AppBar>
-			<BrowserRouter>
+			<div className={classes.content}> 
 				<nav className={classes.drawer} aria-label="mailbox folders">
 					{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 					<Hidden smUp implementation="css">
 						<Drawer
 							container={container}
 							variant="temporary"
-							anchor={theme.direction === "rtl" ? "right" : "left"}
+							anchor="left"
 							open={mobileOpen}
 							onClose={handleDrawerToggle}
 							classes={{
@@ -153,18 +153,7 @@ function ResponsiveDrawer(props) {
 						</Drawer>
 					</Hidden>
 				</nav>
-
-				<main className={classes.content}>
-					<div className={classes.toolbar} />
-					<Switch>
-						<Route exact path="/" component={Home} />
-						<Route path="/carti-fizice" render={(props) => <GenericBook {...props} />} />
-						<Route path="/carti-electronice" render={(props) => <EBook {...props} />} />
-						<Route path="/carti-audio" render={(props) => <AudioBook {...props} />} />
-						<Route path="/login" render={(props) => <Login {...props} />} />
-					</Switch>
-				</main>
-			</BrowserRouter>
+			</div>
 		</div>
 	);
 }

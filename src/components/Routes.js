@@ -21,12 +21,6 @@ const Routes = [
 		sidebarName: 'Carti audio',
 		icon: Notifications,
 		component: Book
-	},
-	{
-		path: '/login',
-		sidebarName: 'Login',
-		icon: AccordionDetails,
-		component: Login
 	}
 ];
 
