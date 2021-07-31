@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 
 const verifyJWT = async (req, res, next) => {
+    console.log(req.session)
     const token = req.header("x-access-token")
     if (!token) {
         res.json({auth: false, error: "Authentication failed"})

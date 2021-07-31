@@ -1,9 +1,9 @@
 const express = require('express');
-const { getLogin, postLogin } = require('../controllers/login');
 const router = express.Router();
+const { userBorrowed } = require('../controllers/userBorrowed')
 
 router
     .route('/')
-    .post(postLogin);
+    .get(userBorrowed);
 
 module.exports = router;
