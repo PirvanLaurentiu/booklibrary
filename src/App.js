@@ -7,38 +7,33 @@ import Home from "./components/Home";
 import AudioBook from "./components/AudioBook";
 import EBook from "./components/EBook";
 import GenericBook from "./components/GenericBook";
+import UserBook from "./components/UserBook";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Header from "./components/Header";
+import history from './history';
+import Axios from "axios";
+
 
 class App extends React.Component {
     constructor() {
         super();
-        this.state = {
-            isLoading: true
-        };
     }
     
-    fetchBooks(newPage, rowsPerPage) {
-        console.log(this.props)
-    }
-
-    componentDidMount() {
-        this.fetchBooks(this.state.page, this.state.rowsPerPage)
-    }
-
     render() {
-        const { classes } = this.props;
         return (
-            <BrowserRouter>
+            <BrowserRouter history={history}>
             		<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/carti-fizice" render={(props) => <GenericBook {...props} />} />
 						<Route path="/carti-electronice" render={(props) => <EBook {...props} />} />
 						<Route path="/carti-audio" render={(props) => <AudioBook {...props} />} />
+                        <Route path="/cartile-mele" render={(props) => <UserBook {...props} />} />
 						<Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
 					</Switch>
                 <div className="App">
+                    <Header />
                     <SideMenu />
                 </div>
             </BrowserRouter>
@@ -46,10 +41,4 @@ class App extends React.Component {
     }
 }
 
-const headerStyle = {
-    background: '#03a9f4',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '10px'
-}
 export default App;

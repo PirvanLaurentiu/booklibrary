@@ -9,7 +9,6 @@ import SnackbarContent from "@material-ui/core/SnackbarContent";
 import ErrorIcon from "@material-ui/icons/Error";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import { FormatColorResetRounded } from "@material-ui/icons";
 
 
 const useStyles = makeStyles(theme => ({

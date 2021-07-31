@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import BookCard from './BookCard';
+import UserBookCard from './UserBookCard';
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import ErrorIcon from "@material-ui/icons/Error";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from '@material-ui/core/IconButton';
-import Pagination from '@material-ui/lab/Pagination';
+
 
 import {
     Grid,
@@ -20,10 +20,7 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
         padding: theme.spacing(2),
-        marginLeft: 'auto',
-        '& > *': {
-            marginTop: theme.spacing(2),
-          },
+        marginLeft: 'auto'
     },
     icon: {
         color: 'blue',
@@ -40,7 +37,7 @@ const styles = theme => ({
     },
 });
 
-class Book extends React.Component {
+class UserBook extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -56,10 +53,12 @@ class Book extends React.Component {
         this.setErrorClose = this.setErrorClose.bind(this);
     }
 
-
     fetchJobs(newPage) {
-        //console.log(this.props)
-        fetch(`/api/books?page=${newPage}&bookType=${this.props.bookType}`)
+        const username = localStorage.getItem("username")
+        if (!username) {
+            window.location.href = '/home';
+        }
+        fetch(`/api/userBorrowed?page=${newPage}&username=${username}`)
             .then(res => {
                 if (res.status >= 400 && res.status < 600) {
                     throw new Error("Bad response from server");
@@ -122,7 +121,7 @@ class Book extends React.Component {
                 >
                     {this.state.books.map(elem => (
                         <Grid item xs={12} sm={6} md={3} key={this.state.books.indexOf(elem)}>
-                            <BookCard elemData={elem} setError={this.setError} setErrorOpen={this.setErrorOpen} />
+                            <UserBookCard elemData={elem} setError={this.setError} setErrorOpen={this.setErrorOpen} />
                         </Grid>
                     ))}
                 </Grid>
@@ -161,10 +160,9 @@ class Book extends React.Component {
               />
             </Snackbar>
                 ) : null }
-            
             </div>
         )
     }
 }
 
-export default withStyles(styles, { withTheme: true })(Book)
+export default withStyles(styles, { withTheme: true })(UserBook)

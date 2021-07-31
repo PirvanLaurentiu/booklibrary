@@ -8,19 +8,32 @@ const Routes = [
 		path: '/carti-fizice',
 		sidebarName: 'Carti fizice',
 		icon: Home,
-		component: Book
+		component: Book,
+		needsLogin: false,
 	},
 	{
 		path: '/carti-electronice',
 		sidebarName: 'Carti electronice',
 		icon: AccountCircle,
-		component: Book
+		component: Book,
+		needsLogin: false,
+
 	},
 	{
 		path: '/carti-audio',
 		sidebarName: 'Carti audio',
 		icon: Notifications,
-		component: Book
+		component: Book,
+		needsLogin: false,
+
+	},
+	{
+		path: '/cartile-mele',
+		sidebarName: 'Cartile mele',
+		icon: Notifications,
+		component: Book,
+		needsLogin: true,
+
 	}
 ];
 

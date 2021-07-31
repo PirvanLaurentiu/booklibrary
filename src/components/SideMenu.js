@@ -1,31 +1,24 @@
 import React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import Button from '@material-ui/core/Button';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import Routes from "./Routes";
-import Home from "./Home";
-import AudioBook from "./AudioBook";
-import EBook from "./EBook";
-import GenericBook from "./GenericBook";
-import Login from "./Login";
+import Axios from "axios";
+
 
 const drawerWidth = 240;
 
@@ -71,6 +64,7 @@ function ResponsiveDrawer(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
+	const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -83,12 +77,16 @@ function ResponsiveDrawer(props) {
 			<List>
 				{Routes.map((prop, key) => {
 					return (
-						<ListItem key={prop.sidebarName} component={Link} to={prop.path}>
-							<ListItemIcon>
-								<prop.icon />
-							</ListItemIcon>
-							<ListItemText primary={prop.sidebarName} />
-						</ListItem>
+						<div>
+							{ (prop.needsLogin && localStorage.getItem("username")) != null || !prop.needsLogin ? 
+													<ListItem key={prop.sidebarName} component={Link} to={prop.path}>
+													<ListItemIcon>
+														<prop.icon />
+													</ListItemIcon>
+													<ListItemText primary={prop.sidebarName} />
+												</ListItem>
+							: null }
+						</div>
 					);
 				})}
 			</List>
@@ -99,33 +97,6 @@ function ResponsiveDrawer(props) {
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			<AppBar position="fixed" className={classes.appBar}>
-				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						edge="start"
-						onClick={handleDrawerToggle}
-						className={classes.menuButton}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" className={classes.title} noWrap>
-						Biblioteca virtuala
-					</Typography>
-					{/* <Button color="primary" className="btn btn-primary" onClick={RouteChange}>Login</Button> */}
-					<Link to="/register">
-					<Button renderAs="button">
-						<span>Register</span>
-					</Button>
-					</Link>
-					<Link to="/login">
-					<Button renderAs="button">
-						<span>Login</span>
-					</Button>
-					</Link>
-				</Toolbar>
-			</AppBar>
 			<div className={classes.content}> 
 				<nav className={classes.drawer} aria-label="mailbox folders">
 					{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
