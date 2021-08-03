@@ -8,14 +8,12 @@ const Routes = [
 		path: '/carti-fizice',
 		sidebarName: 'Carti fizice',
 		icon: Home,
-		component: Book,
 		needsLogin: false,
 	},
 	{
 		path: '/carti-electronice',
 		sidebarName: 'Carti electronice',
 		icon: AccountCircle,
-		component: Book,
 		needsLogin: false,
 
 	},
@@ -23,7 +21,6 @@ const Routes = [
 		path: '/carti-audio',
 		sidebarName: 'Carti audio',
 		icon: Notifications,
-		component: Book,
 		needsLogin: false,
 
 	},
@@ -31,7 +28,6 @@ const Routes = [
 		path: '/cartile-mele',
 		sidebarName: 'Cartile mele',
 		icon: Notifications,
-		component: Book,
 		needsLogin: true,
 
 	}

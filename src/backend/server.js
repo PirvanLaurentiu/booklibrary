@@ -15,7 +15,8 @@ const borrowBook = require('./routes/borrowBook');
 const register = require('./routes/register');
 const login = require('./routes/login');
 const isUserAuth = require('./routes/isUserAuth');
-const userBorrowed = require('./routes/userBorrowed')
+const userBorrowed = require('./routes/userBorrowed');
+const searchBooks = require('./routes/searchBooks')
 
 // init app
 const app = express();
@@ -47,7 +48,8 @@ app.use('/api/borrowBook', borrowBook);
 app.use('/api/register', register);
 app.use('/api/login', login);
 app.use('/api/isUserAuth', isUserAuth);
-app.use('/api/userBorrowed', userBorrowed)
+app.use('/api/userBorrowed', userBorrowed);
+app.use('/api/searchBooks', searchBooks);
 
 // run app
 app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));

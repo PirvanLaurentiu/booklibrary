@@ -11,7 +11,7 @@ dotenv.config({path: '../config/config.env'})
 // @access Public
 exports.getBooks = async (req, res, next) => {
     try {
-        const rowsPerPage = parseInt(req.query.rowsPerPage) || 15;
+        const rowsPerPage = parseInt(req.query.rowsPerPage) || 8;
         const page = parseInt(req.query.page) || 0;
         const bookType = req.query.bookType;
         const skip = page * rowsPerPage;

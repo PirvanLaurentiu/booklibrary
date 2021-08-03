@@ -6,6 +6,8 @@ import SnackbarContent from "@material-ui/core/SnackbarContent";
 import ErrorIcon from "@material-ui/icons/Error";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from '@material-ui/core/IconButton';
+import Pagination from '@material-ui/lab/Pagination';
+import isEqual from 'lodash/isEqual';
 
 
 import {
@@ -42,23 +44,24 @@ class UserBook extends React.Component {
         super();
         this.state = {
             isLoading: true,
-            page: 0,
+            page: 1,
             books: [],
             paginationCount: 0,
             error: null,
             errorOpen: false,
+            booksPerPage: 8,
         };
         this.setError = this.setError.bind(this);
         this.setErrorOpen = this.setErrorOpen.bind(this);
         this.setErrorClose = this.setErrorClose.bind(this);
     }
 
-    fetchJobs(newPage) {
+    fetchJobs() {
         const username = localStorage.getItem("username")
         if (!username) {
             window.location.href = '/home';
         }
-        fetch(`/api/userBorrowed?page=${newPage}&username=${username}`)
+        fetch(`/api/userBorrowed?page=${this.state.page - 1}&username=${username}&rowsPerPage=${this.state.booksPerPage}`)
             .then(res => {
                 if (res.status >= 400 && res.status < 600) {
                     throw new Error("Bad response from server");
@@ -68,8 +71,7 @@ class UserBook extends React.Component {
             .then(res => res.json())
                 .then(books_ => this.setState({ 
                     books: books_["data"],
-                    paginationCount: books_["paginationCount"],
-                    page: newPage,
+                    paginationCount: Math.ceil(books_["paginationCount"] / this.state.booksPerPage),
                     isLoading: false  
                 }, () => console.log("successfully fetched jobs", books_, this.state)
                 )).catch(e => {
@@ -97,6 +99,20 @@ class UserBook extends React.Component {
         this.fetchJobs(this.state.page);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (!isEqual(nextState, this.state)) {
+            return true
+        }
+
+        return false
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (!isEqual(prevState.page, this.state.page)) {
+            this.fetchJobs();
+        }
+    }
+
     setExpanded(expanded) {
         this.setState({expanded: expanded})
         console.log(this.state.expanded)
@@ -105,6 +121,10 @@ class UserBook extends React.Component {
     handleExpandClick = () => {
         this.setExpanded(!this.state.expanded);
     };
+
+    handleChange = (e, p) => {
+        this.setState({page: p})
+    }
 
     render() {
         const { classes } = this.props;
@@ -160,6 +180,12 @@ class UserBook extends React.Component {
               />
             </Snackbar>
                 ) : null }
+            <Pagination style={{ "marginLeft": "70%"}}
+                count={this.state.paginationCount}
+                page={this.state.page}
+                onChange={this.handleChange}
+                size="large"
+            />
             </div>
         )
     }
